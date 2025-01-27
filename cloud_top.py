@@ -55,7 +55,7 @@ def cloud_base_top(clw, clw_thresh=1.0e-5):
     # idx_bcb = np.maximum(idx_acb - 1, 0)
     idx_bct = np.maximum(idx_act - 1, 0)
 
-    return idx_acb, idx_bct
+    return idx_acb, idx_bct, clt_mask
 
 
 def var_below_cloud_top(
@@ -76,7 +76,7 @@ def var_below_cloud_top(
         dimensions as var, minus 'lev'.
     clt_mask : xr.DataArray
         Mask of grid cells with liquid water. Must have same dimensions as
-        var.
+        idx_bct.
 
     Returns
     -------
@@ -84,7 +84,7 @@ def var_below_cloud_top(
         var selected on the model level below the cloud top.
     """
     var_to_choose = (  # Have to limit levels to 31 in order to use np.choose.
-        var.isel(lev=slice(0, 31)).transpose(*idx_bct.dims)
+        var.isel(lev=slice(0, 31)).transpose('lev', *idx_bct.dims)
     )
     dims_to_choose = list(var_to_choose.dims)
     dims_to_choose.remove('lev')
