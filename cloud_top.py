@@ -89,11 +89,12 @@ def var_below_cloud_top(
     dims_to_choose = list(var_to_choose.dims)
     dims_to_choose.remove('lev')
     dims_to_choose.insert(0, 'lev')
+    print(dims_to_choose)
     var_bct = xr.where(
         clt_mask,
         np.choose(
             idx_bct,
             choices=var_to_choose.transpose(*dims_to_choose),
             mode='clip'),
-        0)
+        np.nan)
     return var_bct
