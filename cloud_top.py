@@ -19,10 +19,10 @@ def cloud_base_top(clw, clw_thresh=1.0e-5):
     ----------
     clw : xr.DataArray
         Cloud liquid water field. Must have a model level dimension named
-        'lev'. Default units are kg m-3
+        'lev'. Default units are kg kg^-1
     clw_thresh : xr.DataArray
         Threshold for detecting presence of liquid water. Default units are
-        kg m-3.
+        kg kg^-1.
 
     Returns
     -------
